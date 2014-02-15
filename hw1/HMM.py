@@ -1,5 +1,5 @@
 from __future__ import division
-
+import re
 class HMM:
 	def __init__(self,training):
 		self.words = {}
@@ -30,7 +30,18 @@ class HMM:
 		return self.words.get((tag,word),0.0)
 	
 	def replace_word(self,word):
-		if self.word_counts.get(word,0.0) < 5: return "_RARE_"
+		regex = '[0-9]'
+		lowerCaseRegex = '/[a-z]/'
+		digitP = re.compile(regex)
+		lowerReg = re.compile(lowerCaseRegex)
+		if self.word_counts.get(word,0.0) < 5:
+			if digitP.match(word):
+				return "_Numeric_"
+			elif lowerReg.match(word) == None:
+				return "_AllUpper_"
+			elif word[len(word)-1].isUpper():
+				return "_LastUpper_"
+			return "_RARE_"
 		else: return word
 	
 	def getTags(self):
