@@ -1,0 +1,11 @@
+import numpy as np
+
+class Tagger:
+	
+	def load(self,data):
+		pass
+	# Calculates the emision probability of a given word tag pair
+	def e(self,x,y):
+		#x is the word y is the tag for the given word
+	
+		pass
